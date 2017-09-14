@@ -1,0 +1,12 @@
+<ion-view view-title={{pageTitle}}>
+    <ion-header-bar class="bar-dark" >
+        <h1 class="title">{{pageTitle}}</h1>
+      </ion-header-bar>
+      <ion-content>
+         <ion-spinner ng-show="showLoader" icon="android"></ion-spinner>
+         <div id="fullMapView"></div>
+      </ion-content>
+      <ion-footer-bar class="bar-dark">
+        Location
+      </ion-footer-bar>
+</ion-view>

@@ -41,16 +41,92 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('ProfileCtrl', function($scope) {
+    $scope.pageTitle = "Profile";
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('ShopInfoCtrl', function($scope, $ionicLoading, $compile) {
+    $scope.pageTitle = "Shop Information";
+    $scope.showLoader = true;
+
+    navigator.geolocation.getCurrentPosition(function(position){
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {
+                lat: 41.85,
+                lng: -87.65
+            },
+            zoom: 10
+        });
+
+        directionsDisplay.setMap(map);
+
+        directionsService.route({
+            origin: '12.841562900000001, 80.1516518',
+            destination: '133 Bajanai Koil St Melmanagar, Poonamallee, Chennai, Tamil Nadu 600056',
+            optimizeWaypoints: true,
+            travelMode: 'DRIVING'
+        }, function(response, status) {
+            if (status === 'OK') {
+                $scope.showLoader = false;
+                console.log(response.routes[0].legs);
+                console.log(status);
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    });
+})
+
+.controller('ViewMapCtrl', function($scope, $ionicLoading, $compile, $window) {
+
+    $scope.pageTitle = "Map";
+    $scope.showLoader = true;
+
+    var refresh = function() {
+        navigator.geolocation.getCurrentPosition(function(position){
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+
+            var map = new google.maps.Map(document.getElementById('fullMapView'), {
+                center: {
+                    lat: 41.85,
+                    lng: -87.65
+                },
+                zoom: 10
+            });
+
+            directionsDisplay.setMap(map);
+
+            directionsService.route({
+                origin: '12.841562900000001, 80.1516518',
+                destination: '133 Bajanai Koil St Melmanagar, Poonamallee, Chennai, Tamil Nadu 600056',
+                optimizeWaypoints: true,
+                travelMode: 'DRIVING'
+            }, function(response, status) {
+                if (status === 'OK') {
+                    $scope.showLoader = false;
+                    console.log(response.routes[0].legs);
+                    console.log(status);
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        });
+    }
+
+    refresh();
+
+})
+
+.controller('HomeCtrl', function($scope) {
+    $scope.pageTitle = "Home";
+})
+
+.controller('MyStoreCtrl', function($scope) {
+    $scope.pageTitle = "My Store";
 });

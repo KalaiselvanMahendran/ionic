@@ -25,49 +25,98 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  // home
+  .state('app.home', {
+    url: '/home',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/home.html',
+        controller: 'HomeCtrl'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
+  // Login
+  .state('app.login', {
+    url: '/login',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/login.html',
+        // controller: 'LoginCtrl'
       }
-    })
-    .state('app.playlists', {
-      url: '/playlists',
+    }
+  })
+
+  // Signup
+  .state('app.signup', {
+    url: '/signup',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/signup.html',
+        // controller: 'SignupCtrl'
+      }
+    }
+  })
+  // near-by-you
+  .state('app.nearByYou', {
+    url: '/near-by-you',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/near-by-you-list.html',
+        // controller: 'NearByYouCtrl'
+      }
+    }
+  })
+
+  // shop-info
+  .state('app.shopInfo', {
+    url: '/near-by-you/:shopId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/shop-info.html',
+        controller: 'ShopInfoCtrl'
+      }
+    }
+  })
+
+  // view-map
+  .state('app.viewMap', {
+      url: '/view-map',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/map.html',
+          controller: 'ViewMapCtrl'
         }
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+    // profile
+  .state('app.profile', {
+      url: '/profile',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/profile.html',
+          controller: 'ProfileCtrl'
+        }
       }
-    }
-  });
+    })
+
+    .state('app.mystore', {
+        url: '/my-store',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/my-store.html',
+            controller: 'MyStoreCtrl'
+          }
+        }
+      });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/home');
 });
